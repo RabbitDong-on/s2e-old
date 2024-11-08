@@ -56,7 +56,9 @@ namespace plugins {
 typedef struct {
 	uint32_t op_code;
 	uint32_t frame_count;
-	uint32_t frames[1];
+	uint32_t frames[2];
+	uint8_t filename[61];
+	uint8_t funcname[61];
 } __attribute__((packed)) TraceUpdate;
 
 
@@ -875,7 +877,7 @@ unsigned int InterpreterMonitor::handleOpcodeInvocation(S2EExecutionState *state
 	TraceUpdate *update = (TraceUpdate*)message_buffer;
 
 	HighLevelPC hlpc = HighLevelPC(&update->frames[0],
-			&update->frames[update->frame_count]);
+			&update->frames[1]);
 	HighLevelOpcode opcode = update->op_code;
 	delete [] message_buffer;
 

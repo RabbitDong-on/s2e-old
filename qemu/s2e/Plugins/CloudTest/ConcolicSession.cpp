@@ -235,6 +235,7 @@ unsigned int ConcolicSession::handleOpcodeInvocation(S2EExecutionState *state,
 	case START_CONCOLIC_SESSION:
 		result = startConcolicSession(state, message.max_time);
 		break;
+	// 这部分会被多次调用
 	case END_CONCOLIC_SESSION:
 		result = endConcolicSession(state, message.is_error_path);
 		break;

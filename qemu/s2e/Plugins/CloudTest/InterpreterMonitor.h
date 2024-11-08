@@ -82,11 +82,13 @@ inline std::ostream& operator<<(std::ostream &os, const HighLevelPC &t) {
 	return os;
 }
 
-
+// record current high level instruction, successor and predecessor
 class HighLevelInstruction {
 public:
 	typedef std::map<HighLevelPC, HighLevelInstruction*> AdjacencyMap;
-
+	std::string filename;
+	std::string funcname;
+	int linenum;
 	const HighLevelPC &hlpc() const {
 		return hlpc_;
 	}
@@ -140,7 +142,7 @@ private:
 
 	HighLevelPC hlpc_;
 	HighLevelOpcode opcode_;
-
+	// pc <--> opcode map
 	AdjacencyMap successors_;
 	AdjacencyMap predecessors_;
 
@@ -152,7 +154,7 @@ private:
 	void operator=(const HighLevelInstruction &);
 };
 
-
+// link high level instructions
 class HighLevelBasicBlock {
 public:
 	typedef std::vector<HighLevelBasicBlock*> AdjacencyList;

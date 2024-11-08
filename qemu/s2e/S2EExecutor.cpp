@@ -1467,7 +1467,7 @@ ExecutionState* S2EExecutor::selectNonSpeculativeState(S2EExecutionState *state)
             }
         }
         m_deletedStates.clear();
-        qemu_system_shutdown_request();
+        // qemu_system_shutdown_request();
     }
 
     return newState;
@@ -2078,7 +2078,7 @@ S2EExecutor::StatePair S2EExecutor::fork(ExecutionState &current,
 
         newConditions[0] = condition;
         newConditions[1] = klee::NotExpr::create(condition);
-
+// 主要通过这个进行fork new state
         doStateFork(static_cast<S2EExecutionState*>(&current),
                        newStates, newConditions);
     }
